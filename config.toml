@@ -1,4 +1,4 @@
-baseURL = "https://pacadenae.github.io/visualcomputing"
+baseURL = "https://pacadenae.github.io/visual"
 languageCode = "en-us"
 title = "Showcase Template"
 theme = 'book'
@@ -22,7 +22,7 @@ enableGitInfo = true
 
   # Set source repository location.
   # Used for 'Last Modified' and 'Edit this page' links.
-  BookRepo = 'https://github.com/pacadenae/visualcomputing/'
+  BookRepo = 'https://github.com/visualcomputing/showcase'
 
   # Configure the date format used on the pages
   # - In git information
