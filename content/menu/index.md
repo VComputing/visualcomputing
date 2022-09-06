@@ -11,4 +11,6 @@ headless: true
 - [Katex]({{< relref "/docs/shortcodes/katex" >}})
 - [Mermaid]({{< relref "/docs/shortcodes/mermaid" >}})
 - [Tabs]({{< relref "/docs/shortcodes/tabs" >}})
+- **Workshops**
+- [Visual_Illusions]({{<relref "/docs/shortcodes/workshops">}})
 <br />
