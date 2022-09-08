@@ -349,6 +349,9 @@ function keyPressed(){
     filt++;
   } else if (keyCode === LEFT_ARROW){
     filt--;
+    if (filt < 0){
+        filt = pictures.length - 1;
+    }
   } else if (keyCode === UP_ARROW){
     fac++;
     fac = fac === 0 ? 1: fac;
