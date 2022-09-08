@@ -326,7 +326,8 @@ var im = 0;
 var img2;
 function draw() {
   //noLoop();
-  background(0);
+  circle(fac, filt, bri);
+  /*background(0);
   img = pictures[im];
   img2 = applyFilter(img, 4, kernels[filt], fac, bri, 1);
   
@@ -334,7 +335,7 @@ function draw() {
   image(img2, width / 2, 0, width / 2, height / 2);
   histogram(img, 0, height / 2);
   histogram(img2, width / 2, height / 2);
-  
+  */
 }
 
 function keyPressed(){
