@@ -1,5 +1,44 @@
 # Filtros de Convolución
 
+## Problem Statement
+
+Implement an image processing web app supporting different image kernels and supporting:
+
+    Image histogram visualization.
+    Different lightness (coloring brightness) tools.
+
+{{< details "Background" open >}}
+Un kernel es una matriz generalmente de 3x3, cuyos valores son operados con los pixelse de una imagen determinada para producir diversos efectos.
+{{< /details >}}
+{{< hint info >}}
+**Instrucciones de Uso**  
+→: Siguiente filtro.
+←: Filtro anterior.
+↑: Aumentar div.
+↓: Disminuir div.
+w: Aumentar Brillo.
+s: Disminuir Brillo.
+d: Imagen siguiente.
+a: imagen anterior.
+ENTER: Guardar imagen en memoria.
+r: Reset.
+{{< /hint >}}
+
+{{< hint info >}}
+**Filtros Implementados**
+Filtro identidad
+Filtro media o desenfoque
+Filtro enfoque
+Filtro de media ponderada o desenfoque sin pérdidad de detalles
+Realzar bordes
+Detectar bordes
+Repujado
+Direccional norte
+Direccional este
+Sobel C
+Sobel F
+{{< /hint >}}
+
 {{< p5-global-iframe width="625" height="625" >}}
 
 var pictures;
@@ -387,4 +426,10 @@ function keyPressed(){
 {{< /p5-global-iframe >}}
 
 
-
+{{< details "References" open >}}
+  https://docs.gimp.org/2.6/es/plug-in-convmatrix.html
+  https://bryanmed.github.io/kernelsConv/
+  https://youtu.be/ISBg0p0gYiM
+  https://en.wikipedia.org/wiki/Kernel_(image_processing)
+  https://www.um.es/geograf/sigmur/teledet/tema06.pdf
+{{< /details >}}
