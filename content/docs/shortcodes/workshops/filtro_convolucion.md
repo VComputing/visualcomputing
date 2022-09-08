@@ -1,6 +1,6 @@
 # Filtros de Convolución
 
-{{< p5-global-iframe width="600" height="600" >}}
+{{< p5-global-iframe width="625" height="625" >}}
 
 var pictures;
 let img;
@@ -64,11 +64,11 @@ function preload() {
   
   pictures.push(loadImage('imgs/image0.jpg'));
   
-  /*pictures.push(loadImage('visualcomputing/imgs/image1.jpg'));
-  pictures.push(loadImage('visualcomputing/imgs/image2.jpg'));
-  pictures.push(loadImage('visualcomputing/imgs/image3.jpg'));
-  pictures.push(loadImage('visualcomputing/imgs/image4.jpg'));
-  */
+  pictures.push(loadImage('imgs/image1.jpg'));
+  pictures.push(loadImage('imgs/image2.jpg'));
+  pictures.push(loadImage('imgs/image3.jpg'));
+  pictures.push(loadImage('imgs/image4.jpg'));
+  
   }
 
 
