@@ -362,7 +362,7 @@ function keyPressed(){
   } else if (keyCode === 65){
     im--;
     if (im < 0){
-        im = im % pictures.length;
+        im = pictures.length - 1;
     }
   } else if (keyCode === 68){
     im++;
