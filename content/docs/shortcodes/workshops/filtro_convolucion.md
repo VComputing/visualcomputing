@@ -349,6 +349,9 @@ function keyPressed(){
     filt++;
   } else if (keyCode === LEFT_ARROW){
     filt--;
+    if (filt < 0){
+        filt = pictures.length - 1;
+    }
   } else if (keyCode === UP_ARROW){
     fac++;
     fac = fac === 0 ? 1: fac;
@@ -370,7 +373,6 @@ function keyPressed(){
     filt = 0;
     bri = 0;
     fac = 1;
-    im = 0;
   } else if (keyCode === ENTER){
     pictures.push(img2);
   }
