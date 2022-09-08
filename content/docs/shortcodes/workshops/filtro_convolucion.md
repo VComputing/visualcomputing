@@ -361,6 +361,9 @@ function keyPressed(){
     bri--;
   } else if (keyCode === 65){
     im--;
+    if (im < 0){
+        im = im % pictures.length;
+    }
   } else if (keyCode === 68){
     im++;
   } else if (keyCode === 82){
