@@ -1,6 +1,6 @@
 # Filtros de Convolución
 
-{{< pk-global-iframe width="600" height="600" >}}
+{{< p5-global-iframe width="600" height="600" >}}
 
 var pictures;
 let img;
