@@ -62,11 +62,13 @@ function preload() {
   //Aqui se carga una lista de imagenes
   pictures = new Array();
   
-  pictures.push(loadImage('visualcomputing/imgs/image0.jpg'));
-  pictures.push(loadImage('visualcomputing/imgs/image1.jpg'));
+  pictures.push(loadImage('/imgs/image0.jpg'));
+  
+  /*pictures.push(loadImage('visualcomputing/imgs/image1.jpg'));
   pictures.push(loadImage('visualcomputing/imgs/image2.jpg'));
   pictures.push(loadImage('visualcomputing/imgs/image3.jpg'));
   pictures.push(loadImage('visualcomputing/imgs/image4.jpg'));
+  */
   }
 
 
