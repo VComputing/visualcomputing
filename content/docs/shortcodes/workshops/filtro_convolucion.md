@@ -373,7 +373,6 @@ function keyPressed(){
     filt = 0;
     bri = 0;
     fac = 1;
-    im = 0;
   } else if (keyCode === ENTER){
     pictures.push(img2);
   }
