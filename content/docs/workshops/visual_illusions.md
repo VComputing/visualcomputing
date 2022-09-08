@@ -7,7 +7,7 @@ Study, implement and discuss possible applications of some known visual phenomen
 
 
 {{< details "Background" open >}}
-Sometimes your brain can change the colors of what you are seeing, based on the colors of surrounding the object, the moviing square illusion (https://petapixel.com/2022/08/03/the-square-in-this-optical-illusion-isnt-actually-changing-color/) show this. To recreate this illusion the following code was used as reference for the background: https://editor.p5js.org/Jaemi13/sketches/gAS-FB5Sx
+Sometimes your brain can change the colors of what you are seeing, based on the colors of surrounding the object. This fenomenom is caused by the *chromatic induction effect* "the change in perceived color of a light caused by a nearby inducing stimulus", and thats how the moving square illusion works. The square will move up and down across a background with different colors and it will seem to change color to your eyes. 
 {{< /details >}}
 
 {{< details "Code and results" >}}
@@ -69,6 +69,16 @@ function draw() {
   }
 }
 {{< /p5-global-iframe  >}}
-{{< details "Conclusions" open >}}
-The square seems to get darker as it goues up however if you check the code you can see that it is always the same shade of blur, the human eye can be tricked using surrounding colors.
+{{< details "References" open >}}
+  https://petapixel.com/2022/08/03/the-square-in-this-optical-illusion-isnt-actually-changing-color/
+  https://editor.p5js.org/Jaemi13/sketches/gAS-FB5Sx
+  Steven K Shevell, Jianping Wei,
+  Chromatic induction: border contrast or adaptation to surrounding light?,
+  Vision Research,
+  Volume 38, Issue 11,
+  1998,
+  Pages 1561-1566,
+  ISSN 0042-6989,
+  https://doi.org/10.1016/S0042-6989(98)00006-6.
+  (https://www.sciencedirect.com/science/article/pii/S0042698998000066)
 {{< /details >}}

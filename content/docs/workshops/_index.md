@@ -2,7 +2,7 @@
 bookCollapseSection: true
 ---
 
-# workshops
+# Workshops
 
 
 
