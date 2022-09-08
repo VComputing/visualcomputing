@@ -12,14 +12,15 @@ Sometimes your brain can change the colors of what you are seeing, based on the 
 
 {{< details "Code and results" >}}
 ```tpl
-let c1,c2,a;
+let c1,c2,a,sp;
 function setup() {
   createCanvas(400, 500);
-  c1 = color(255);
+  c1 = color(255, 182, 193);
   c2 = color(63, 191, 191);
   
   
   a=0;
+  sp=0.5;
 }
 function draw() {
   for(let y=0; y<height; y++){
@@ -29,12 +30,12 @@ function draw() {
     line(0,y,width, y);
   }
   square(150,a,55);
-  fill(63, 191, 191)
-  a = a - 0.5;
-  if (a < 0) {
-    a = height;
+  fill(110, 187, 192)
+  a = a + sp;
+ 
+  if(a > height-60 || a < 0.5){
+    sp = -sp;
   }
-
 }
 
 ```
@@ -42,14 +43,15 @@ function draw() {
 
 
 {{< p5-global-iframe id="breath" width="425" height="525" >}}
-let c1,c2,a;
+let c1,c2,a,sp;
 function setup() {
   createCanvas(400, 500);
-  c1 = color(255);
+  c1 = color(255, 182, 193);
   c2 = color(63, 191, 191);
   
   
   a=0;
+  sp=0.5;
 }
 function draw() {
   for(let y=0; y<height; y++){
@@ -59,12 +61,12 @@ function draw() {
     line(0,y,width, y);
   }
   square(150,a,55);
-  fill(63, 191, 191)
-  a = a - 0.5;
-  if (a < 0) {
-    a = height;
+  fill(110, 187, 192)
+  a = a + sp;
+ 
+  if(a > height-65 || a < 0.5){
+    sp = -sp;
   }
-
 }
 {{< /p5-global-iframe  >}}
 {{< details "Conclusions" open >}}
