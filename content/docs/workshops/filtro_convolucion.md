@@ -20,6 +20,7 @@ w: Aumentar Brillo.
 s: Disminuir Brillo.
 d: Imagen siguiente.
 a: imagen anterior.
+ESPACIO: Visualizar histogramas.
 ENTER: Guardar imagen en memoria.
 r: Reset.
 {{< /hint >}}
@@ -27,14 +28,18 @@ r: Reset.
 {{< hint info >}}
 **Filtros Implementados**
 Filtro identidad
-Filtro media o desenfoque
-Filtro enfoque
-Filtro de media ponderada o desenfoque sin pérdidad de detalles
+Desenfoque / Blur (media)
+Desenfoque sin pérdida de detalles (media ponderada)
+Gausiano 3x3
+Media negativo
+Laplace
+Enfoque / Sharpen (Laplace negativo)
 Realzar bordes
-Detectar bordes
 Repujado
 Direccional norte
 Direccional este
+Direccional sur
+Direccional oeste
 Sobel C
 Sobel F
 {{< /hint >}}
@@ -50,26 +55,44 @@ const kernels = [
   [[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], 
    [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0]],
    [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]],
-  //Desenfoque (media)
-  [[[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]], 
-   [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]],
-   [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]]],
-  //Enfoque
+  
+  //Desenfoque / Blur (media)
+  [[[1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0]], 
+   [[1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 1], [1/9, 1/9, 1/9, 0]],
+   [[1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0]]],
+  
+  
+  //Media ponderada para no perder detalle
+  [[[1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0]], 
+   [[1/9, 1/9, 1/9, 0], [2/9, 2/9, 2/9, 1], [1/9, 1/9, 1/9, 0]],
+   [[1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0], [1/9, 1/9, 1/9, 0]]],
+  
+  //Blur gausiano 
+  [[[1/16, 1/16, 1/16, 0], [2/16, 2/16, 2/16, 0], [1/16, 1/16, 1/16, 0]], 
+   [[2/16, 2/16, 2/16, 0], [4/16, 4/16, 4/16, 1], [2/16, 2/16, 2/16, 0]],
+   [[1/16, 1/16, 1/16, 0], [2/16, 2/16, 2/16, 0], [1/16, 1/16, 1/16, 0]]],
+  
+  //PASA ALTOS
+  //Menos media
+  [[[-1/9, -1/9, -1/9, 0], [-1/9, -1/9, -1/9, 0], [-1/9, -1/9, -1/9, 0]], 
+   [[-1/9, -1/9, -1/9, 0], [8/9, 8/9, 8/9, 1], [-1/9, -1/9, -1/9, 0]],
+   [[-1/9, -1/9, -1/9, 0], [-1/9, -1/9, -1/9, 0], [-1/9, -1/9, -1/9, 0]]],
+  
+  //Laplace
+  [[[0, 0, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0]], 
+   [[1, 1, 1, 0], [-4, -4, -4, 1], [1, 1, 1, 0]],
+   [[0, 0, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0]]],
+  
+  //Enfoque / sharpen (Menos laplace)
   [[[0, 0, 0, 0], [-1, -1, -1, -1], [0, 0, 0, 0]], 
    [[-1, -1, -1, -1], [5, 5, 5, 5], [-1, -1, -1, -1]],
    [[0, 0, 0, 0], [-1, -1, -1, -1], [0, 0, 0, 0]]],
-  //Media ponderada para no perder detalle
-  [[[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]], 
-   [[1, 1, 1, 1], [2, 2, 2, 2], [1, 1, 1, 1]],
-   [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]]],
+  
   //Realzar bordes
   [[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], 
    [[1, 1, 1, 1], [-1, -1, -1, -1], [0, 0, 0, 0]],
    [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]],
-  //Detectar bordes
-  [[[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0]], 
-   [[1, 1, 1, 1], [-1, -1, -1, -1], [1, 1, 1, 1]],
-   [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0]]], 
+  
   //Repujado
   [[[-2, -2, -2, -2], [-1, -1, -1, -1], [0, 0, 0, 0]], 
    [[-1, -1, -1, -1], [1, 1, 1, 1], [1, 1, 1, 1]],
@@ -77,19 +100,31 @@ const kernels = [
   
   //DIRECCIONALES
   //Norte
-  [[[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]], 
-   [[1, 1, 1, 1], [-2, -2, -2, -2], [1, 1, 1, 1]],
-   [[-1, -1, -1, -1], [-1, -1, -1, -1], [-1, -1, -1, -1]]],
+  [[[1, 1, 1, 0], [1, 1, 1, 0], [1, 1, 1, 0]], 
+   [[1, 1, 1, 0], [-2, -2, -2, 1], [1, 1, 1, 0]],
+   [[-1, -1, -1, 0], [-1, -1, -1, 0], [-1, -1, -1, 0]]],
+  
   //Este
-  [[[-1, -1, -1, -1], [1, 1, 1, 1], [1, 1, 1, 1]], 
-   [[-1, -1, -1, -1], [-2, -2, -2, -2], [1, 1, 1, 1]],
-   [[-1, -1, -1, -1], [1, 1, 1, 1], [1, 1, 1, 1]]], 
+  [[[-1, -1, -1, 0], [1, 1, 1, 0], [1, 1, 1, 0]], 
+   [[-1, -1, -1, 0], [-2, -2, -2, 1], [1, 1, 1, 0]],
+   [[-1, -1, -1, 0], [1, 1, 1, 0], [1, 1, 1, 0]]], 
+  
+  //Sur
+  [[[-1, -1, -1, 0], [-1, -1, -1, 0], [-1, -1, -1, 0]], 
+   [[1, 1, 1, 0], [-2, -2, -2, 1], [1, 1, 1, 0]],
+   [[1, 1, 1, 0], [1, 1, 1, 0], [1, 1, 1, 0]]],
+  
+  //Oeste
+  [[[1, 1, 1, 0], [1, 1, 1, 0], [-1, -1, -1, 0]], 
+   [[1, 1, 1, 0], [-2, -2, -2, 1], [-1, -1, -1, 0]],
+   [[1, 1, 1, 0], [1, 1, 1, 0], [-1, -1, -1, 0]]],
   
   //Sobel
   //C 
   [[[-1, -1, -1, -1], [0, 0, 0, 0], [1, 1, 1, 1]], 
    [[-2, -2, -2, -2], [0, 0, 0, 0], [2, 2, 2, 2]],
    [[-1, -1, -1, -1], [0, 0, 0, 0], [1, 1, 1, 1]]],
+  
   //F
   [[[-1, -1, -1, -1], [-2, -2, -2, -2], [-1, -1, -1, -1]], 
    [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
@@ -220,11 +255,11 @@ function vToroidales(m, i, j){
 
 function convolution(m, ker, pars, f, off){
   let s = [];
-  for (let k = 0; k < pars; k++){
+  for (let k = 0; k < pars - 1; k++){
     s.push(0);
     for (let i = 0; i < m.length; i++){
       for (let j = 0; j < m[0].length; j++){
-        //s[k] = k < 3 ? s[k] + m[i][j][k] * ker[i][j][k]: m[i][j][k];
+        
        s[k] = s[k] + m[i][j][k] * ker[i][j][k]; 
         
       }
@@ -235,6 +270,7 @@ function convolution(m, ker, pars, f, off){
     s[k] = s[k] < 0? 0: s[k];
     
   }
+  s[3] = 255;
   return s;
 }
 
@@ -369,18 +405,20 @@ var bri = 0;
 var fac = 1;
 var im = 0;
 var img2;
+var his = false;
 function draw() {
   //noLoop();
   
-  background(255);
+  background(0);
   img = pictures[im];
   img2 = applyFilter(img, 4, kernels[filt], fac, bri, 1);
   
   image(img, 0, 0, width / 2, height / 2);
   image(img2, width / 2, 0, width / 2, height / 2);
-  histogram(img, 0, height / 2);
-  histogram(img2, width / 2, height / 2);
-  
+  if (his){
+    histogram(img, 0, height / 2);
+    histogram(img2, width / 2, height / 2);
+  }
 }
 
 function keyPressed(){
@@ -389,7 +427,7 @@ function keyPressed(){
   } else if (keyCode === LEFT_ARROW){
     filt--;
     if (filt < 0){
-        filt = pictures.length - 1;
+        filt = kernels.length - 1;
     }
   } else if (keyCode === UP_ARROW){
     fac++;
@@ -398,9 +436,9 @@ function keyPressed(){
     fac--;
     fac = fac === 0 ? -1: fac; 
   } else if (keyCode === 87){
-    bri++;
+    bri+=5;
   } else if (keyCode === 83){
-    bri--;
+    bri-=5;
   } else if (keyCode === 65){
     im--;
     if (im < 0){
@@ -416,13 +454,21 @@ function keyPressed(){
     pictures.push(img2);
   }
   
+  if (keyCode === 32){
+    his = true;
+  }
+  
   filt = filt % kernels.length;
   bri = bri >= 255 ? 250: bri;
   bri = bri <= -255 ? - 250: bri;
   im = im % pictures.length;  
-  print(keyCode);
+  return false;
 }
 
+function keyReleased(){
+  his = false;
+  return false;
+}
 {{< /p5-global-iframe >}}
 
 
