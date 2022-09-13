@@ -4,8 +4,8 @@
 
 Implement an image processing web app supporting different image kernels and supporting:
 
-    Image histogram visualization.
-    Different lightness (coloring brightness) tools.
+Image histogram visualization.
+Different lightness (coloring brightness) tools.
 
 {{< details "Background" open >}}
 Un kernel es una matriz generalmente de 3x3, cuyos valores son operados con los pixelse de una imagen determinada para producir diversos efectos.
