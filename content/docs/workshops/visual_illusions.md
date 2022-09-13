@@ -30,10 +30,10 @@ function draw() {
     line(0,y,width, y);
   }
   square(150,a,55);
-  fill(110, 187, 192)
+  fill(210, 187, 192)
   a = a + sp;
  
-  if(a > height-60 || a < 0.5){
+  if(a > height-65 || a < 0.5){
     sp = -sp;
   }
 }
@@ -61,7 +61,7 @@ function draw() {
     line(0,y,width, y);
   }
   square(150,a,55);
-  fill(110, 187, 192)
+  fill(210, 187, 192)
   a = a + sp;
  
   if(a > height-65 || a < 0.5){
@@ -106,7 +106,7 @@ function draw() {
 }
 ```
 {{< /details >}}
-{{< p5-global-iframe id="breath" width="725" height="525" >}}
+{{< p5-global-iframe id="breath" width="800" height="550" >}}
 function setup() {
   createCanvas(720, 500);
 }
