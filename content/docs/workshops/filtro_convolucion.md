@@ -8,7 +8,7 @@ Implement an image processing web app supporting different image kernels and sup
     Different lightness (coloring brightness) tools.
 
 {{< details "Background" open >}}
-Un kernel es una matriz generalmente de 3x3, cuyos valores son operados con los pixelse de una imagen determinada para producir diversos efectos.
+Un kernel es una matriz generalmente de 3x3, cuyos valores son operados con los pixeles de una imagen determinada para producir diversos efectos.
 {{< /details >}}
 {{< hint info >}}
 **Instrucciones de Uso**  
