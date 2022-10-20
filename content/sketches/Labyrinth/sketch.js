@@ -1,6 +1,21 @@
+let fbo1, fbo2;
+let cam1, cam2;
+let length = 600;
+const size = 30
+let foreshortening = true;
+
+
 function setup() {
-    createCanvas(400, 400);
-  }
+  createCanvas(length, length / 2, WEBGL);
+  //fbo1 = createGraphics(width / 2, height, WEBGL);
+  //fbo2 = createGraphics(width / 2, height, WEBGL);
+  cam1 = new Dw.EasyCam(this._renderer, { distance: 200 });
+  let state1 = cam1.getState();
+  cam1.attachMouseListeners(this._renderer);
+  cam1.state_reset = state1;   // state to use on reset (double-click/tap)
+  cam1.setViewport([0, 0, width, height]);
+  cam1.setPanScale(0.005);
+}
   
   
   function printM(m){
@@ -15,14 +30,23 @@ function setup() {
   }
   
   function drawMatrix(m){
-    let base = width / m.length;
-    let altu = height / m[0].length;
-    for (let x = 0; x < m.length; x++){
+    //let base = width / m.length;
+    let base = 10;
+    let altu = 10;
+    let prof = 10;
+    //let altu = height / m[0].length;
+    for (let x = 0; x < m[0].length; x++){
       for (let y = 0; y < m.length; y++){
-        c = (m[x][y] == 0)? 255: 0;
-        stroke(c);
+        c = (m[x][y] == 0)? 255: 100;
+        prof = (c === 100)? 100: 1;
+        noStroke();
         fill(c);
-        rect(y * altu, x * base, altu, base);
+        push();
+        translate(x * base, y * altu, 0);
+        box(base, altu, prof);
+        
+        pop();
+        //rect(y * altu, x * base, altu, base);
       }
     }
   }
@@ -102,9 +126,13 @@ function setup() {
     return m;
   }
   
-  var laberinto = generate(20, 20);
   
+  var laberinto = generate(20, 20);
+  let x = 0;
   function draw() {
     background(0);
+    orbitControl();
     drawMatrix(laberinto);
+    
+    
   }
