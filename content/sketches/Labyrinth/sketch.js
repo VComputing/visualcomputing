@@ -2,17 +2,28 @@ let fbo1, fbo2;
 let cam1, cam2;
 let length = 600;
 const size = 30
-let foreshortening = true;
+let tapiz, alfombra, luz1, luz2, luces;
 let laberinto;
+let lm;
 let x, z;
 let me;
 
+function preload(){
+  tapiz = loadImage("textures/tapiz.jpg");
+  alfombra = loadImage("textures/alfombra.jpg");
+  luz1 = createVideo("textures/luz1.mp4");
+  luz1.hide();
+  luz2 = createVideo("textures/luz2.mp4");
+  luz2.hide();
+}
+
 function setup() {
-  createCanvas(length, length / 2, WEBGL);
+  createCanvas(length, length, WEBGL);
+  frameRate(60);
   angleMode(DEGREES);
   cam1 = createCamera();
-  
-  laberinto = generate(5, 5);
+  luces = [luz1, luz2];
+  laberinto = generate(6, 6);
   let entry = laberinto.entry;
   me = laberinto.metrics;
   x = entry[0] * me[0];
@@ -48,13 +59,29 @@ function buildLaberynth(labyrinth){
     for (let y = 0; y < m.length; y++){
       c = (m[x][y] == 0)? 255: 100;
       prof = (m[x][y] === 0)? 0: 10;
-      noStroke();
-      fill(c);
+      //noStroke();
+      if (prof === 0){
+        texture(alfombra);
+      } else {
+        texture(tapiz);
+      }
       push();
+      
       translate(x * base, -prof / 2, y * altu);
       box(base, prof, altu);
       
       pop();
+      fill(255,0,0);
+      push();
+      //textureWrap(CLAMP);
+      texture(luces[parseInt(Math.random() * 2)]);
+      translate(x * base, -11 , y * altu);
+      box(base, 0, altu);
+      
+      //plane(base, altu);
+      pop();
+      luz1.loop();
+      luz2.loop();
       //rect(y * altu, x * base, altu, base);
     } 
   }
@@ -66,6 +93,7 @@ function pared(m, i, j){
   rounds.right = j + 2 === m[1].length;
   rounds.down = i + 2 === m.length;
   rounds.left = j - 1 === 0;
+  rounds.bound = rounds.left || rounds.right || rounds.down || rounds.up;
   return rounds;
 }
   
@@ -146,50 +174,35 @@ function generate(cellH, cellV){
 function draw() {
   background(0);
   orbitControl();
-  buildLaberynth(laberinto);
+  let fr = Math.random() * (frameCount % 100);
+  ambientLight(0, 100 + fr, 0);
   
-  push();
-    translate(x, -5, z);
-    fill(0,0,255);
-    //sphere(5);  
-    
-  pop();
-  let speed = 0.5;
+  buildLaberynth(laberinto);
+  console.log(cam1.centerX, cam1.centerY, cam1.centerZ);
+  
+  let speed = 0.25;
+  
   let posX = parseInt((cam1.eyeX ) / me[0]);
   let posZ = parseInt((cam1.eyeZ) / me[1]);
-  let colide = laberinto.m[posX][posZ] === 1; 
-  let bound = colide || posX < 0 || posX > laberinto.m.length || posZ < 0 || posZ > laberinto.m[0].length; 
-  let deltaZ = (keyIsDown(UP_ARROW) && !bound)? speed: (keyIsDown(DOWN_ARROW) && !bound)? -speed: 0;
-  let deltaW = (keyIsDown(RIGHT_ARROW))? -1: (keyIsDown(LEFT_ARROW))? 1: 0;
-  let boing = (colide)? 1: (bound && !colide)? -1: 0;
-  console.log(posX, posZ);
-  cam1.move(0, 0, -deltaZ);
-  cam1.pan(deltaW);
+   
+  let bound = posX < 0 || posX >= laberinto.m.length || posZ < 0 || posZ >= laberinto.m[0].length; 
+  let colide = (bound)? true: laberinto.m[posX][posZ] === 1;
   
-  //cam1.lookAt(x, -5, z);
+  let deltaZ = (keyIsDown(UP_ARROW))? -speed: (keyIsDown(DOWN_ARROW))? speed: 0;
+  let deltaW = (keyIsDown(RIGHT_ARROW))? -1: (keyIsDown(LEFT_ARROW))? 1: 0;
+  let boingB = ((deltaZ > 0 || lm === 'B') && colide)? -speed: 0;
+  let boingF = ((deltaZ < 0 || lm === 'F') && colide)? speed: 0;
+  
+  cam1.move(0, 0, deltaZ + boingF + boingB);
+  cam1.pan(deltaW)
   
 }
 
 function keyPressed(){
-  if (keyCode === RIGHT_ARROW && x < 10*me[0] ){
-    //cam1.move(0, 0, -5);
-    x++;
+  if (keyCode === DOWN_ARROW){
+    lm = 'B';
   }
-  if (keyCode === LEFT_ARROW && x > 0){
-    //cam1.move(0, 0, 5);
-    x--;
+  if (keyCode === UP_ARROW){
+    lm = 'F';
   }
-  if (keyCode === DOWN_ARROW && z > 0){
-    //cam1.pan(-5);
-    z--;
-  }
-  if (keyCode === UP_ARROW && z < me[1] * 10){
-    //cam1.pan(5);
-    z++;
-  }
-  if (keyCode === ENTER){
-    cam1.pan(90);
-    
-  }
-  
 }
