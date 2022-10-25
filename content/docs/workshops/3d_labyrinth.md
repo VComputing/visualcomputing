@@ -48,9 +48,9 @@ let x, z;
 let me;
 
 function preload(){
-  tapiz = loadImage('textures/tapiz.jpg');
-  alfombra = loadImage('textures/alfombra.jpg');
-  luz1 = createVideo('textures/luz1.mp4');
+  tapiz = loadImage('/textures/tapiz.jpg');
+  alfombra = loadImage('/textures/alfombra.jpg');
+  luz1 = createVideo('/textures/luz1.mp4');
   luz1.hide();
   luz2 = createVideo('textures/luz2.mp4');
   luz2.hide();
