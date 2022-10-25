@@ -1,7 +1,7 @@
-let fbo1, fbo2;
-let cam1, cam2;
+
+let cam1;
 let length = 600;
-const size = 30
+
 let tapiz, alfombra, luz1, luz2, luces;
 let laberinto;
 let lm;
@@ -173,7 +173,6 @@ function generate(cellH, cellV){
 
 function draw() {
   background(0);
-  orbitControl();
   let fr = Math.random() * (frameCount % 100);
   ambientLight(0, 100 + fr, 0);
   
