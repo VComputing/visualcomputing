@@ -27,13 +27,13 @@ y una que hasta el momento esté aislada pero sea adyacente al mismo.
 
 {{< hint info >}}
 **Inspiración:**
-* «Si no tienes cuidado y te sales de la realidad en las áreas equivocadas, 
+*«Si no tienes cuidado y te sales de la realidad en las áreas equivocadas, 
 terminarás en los Backrooms, donde no hay más que el hedor de la alfombra 
 húmeda, la locura del mono amarillo y el interminable ruido de fondo de las 
 luces fluorescentes al máximo zumbido, y aproximadamente seiscientos 
 millones de millas de habitaciones vacías segmentadas al azar en las que 
 puedes quedar atrapado. Dios te salva si escuchas a algo deambulando 
-cerca, porque seguro que te ha escuchado...« *
+cerca, porque seguro que te ha escuchado...«*
 {{< /hint >}}
 
 {{< p5-iframe sketch="/visualcomputing/content/sketches/Labyrinth/sketch.js" width="620" height="620" >}}
