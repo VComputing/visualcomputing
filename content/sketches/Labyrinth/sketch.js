@@ -9,9 +9,9 @@ let x, z;
 let me;
 
 function preload(){
-  tapiz = loadImage("visualcomputing/sketches/Labyrinth/textures/tapiz.jpg");
-  alfombra = loadImage("visualcomputing/sketches/Labyrinth/textures/alfombra.jpg");
-  luz1 = createVideo("visualcomputing/sketches/Labyrinth/textures/luz1.mp4");
+  tapiz = loadImage("/visualcomputing/sketches/Labyrinth/textures/tapiz.jpg");
+  alfombra = loadImage("/visualcomputing/sketches/Labyrinth/textures/alfombra.jpg");
+  luz1 = createVideo("/visualcomputing/sketches/Labyrinth/textures/luz1.mp4");
   luz1.hide();
   luz2 = createVideo("textures/luz2.mp4");
   luz2.hide();
