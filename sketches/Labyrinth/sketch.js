@@ -204,4 +204,5 @@ function keyPressed(){
   if (keyCode === UP_ARROW){
     lm = 'F';
   }
+  return false;
 }
