@@ -9,6 +9,7 @@ let me;
 let dirs;
 let flag;
 let dificult, inp, btm, lv;
+let isSound;
 
 function preload(){
   // /visualcomputing/sketches/Labyrinth/
@@ -39,7 +40,7 @@ function setup() {
   //ambiente.loop();
   
   avanti(dificult);
-  
+  isSound = false;
 }
   
 function printM(m){
@@ -293,5 +294,11 @@ function draw() {
 
 function mousePressed(){
   userStartAudio();
-  ambiente.loop();
+  if (!isSound){
+    ambiente.loop();
+    isSound = true;
+  } else {
+    ambiente.stop();
+    isSound = False;
+  }
 }
