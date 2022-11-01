@@ -19,10 +19,10 @@ y una que hasta el momento esté aislada pero sea adyacente al mismo.
 
 {{< hint info >}}
 **Instrucciones de Uso**  
-→: Rota la cámara hacia la derecha.
-←: Rota la cámara hacia la izquierda.
-↑: Avanza en la dirección de tu punto de vista.
-↓: Retrocede respecto a tu punto de vista.
+D: Rota la cámara hacia la derecha.
+A: Rota la cámara hacia la izquierda.
+W: Avanza en la dirección de tu punto de vista.
+S: Retrocede respecto a tu punto de vista.
 {{< /hint >}}
 
 {{< hint info >}}
@@ -36,7 +36,7 @@ puedes quedar atrapado. Dios te salva si escuchas a algo deambulando
 cerca, porque seguro que te ha escuchado...«*
 {{< /hint >}}
 
-{{< p5-iframe sketch="/visualcomputing/sketches/Labyrinth/sketch.js" width="625" height="625" >}}
+{{< p5-iframe sketch="/visualcomputing/sketches/Labyrinth/sketch.js" width="525" height="525" >}}
 
 {{< details "References" open >}}
   https://www.uaeh.edu.mx/scige/boletin/huejutla/n1/a4.html

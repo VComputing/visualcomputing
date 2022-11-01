@@ -1,38 +1,40 @@
 
 let cam1;
-let length = 600;
-
-let tapiz, alfombra, luz1, luz2, luces;
+const size = 30
+let tapiz, alfombra, ambiente, luz3, luces;
 let laberinto;
 let lm;
-let x, z;
+let x, z, xf, zf;
 let me;
+let dirs;
+let flag;
+let dificult, inp, btm, lv;
 
-function preload(){
+function preload(){S
+  // /visualcomputing/sketches/Labyrinth/
   tapiz = loadImage("/visualcomputing/sketches/Labyrinth/textures/tapiz.jpg");
   alfombra = loadImage("/visualcomputing/sketches/Labyrinth/textures/alfombra.jpg");
-  luz1 = createVideo("/visualcomputing/sketches/Labyrinth/textures/luz1.mp4");
-  luz1.hide();
-  luz2 = createVideo("textures/luz2.mp4");
-  luz2.hide();
+  luz3 = loadImage("/visualcomputing/sketches/Labyrinth/textures/luz3.jpeg");
+  ambiente = loadSound("/visualcomputing/sketches/Labyrinth/sound/ambiente2.mp3");
 }
 
 function setup() {
-  createCanvas(length, length, WEBGL);
+  createCanvas(500, 500, WEBGL);
   frameRate(60);
   angleMode(DEGREES);
   cam1 = createCamera();
-  luces = [luz1, luz2];
-  laberinto = generate(6, 6);
-  let entry = laberinto.entry;
-  me = laberinto.metrics;
-  x = entry[0] * me[0];
-  z = entry[1] * me[1];
-  cam1.frustum(-0.1, 0.1, 0.1, -0.1, 0.1);
-  cam1.camera(x, -5, z-0.1);
-  cam1.lookAt(x, -5, z);
-  //fbo1 = createGraphics(width / 2, height, WEBGL);
-  //fbo2 = createGraphics(width / 2, height, WEBGL);
+  
+  dificult = 1;
+  inp = createInput();
+  inp.size(30);
+  inp.position(width / 2 -15, 0);
+  btm = createButton('Ir');
+  btm.position(width / 2 + 30, 0);
+  btm.mousePressed(setDificult);
+  lv = createElement("h2", "Dificultad: " + dificult);
+  lv.position(10, height - 80);
+  ambiente.loop();
+  avanti(dificult);
   
 }
   
@@ -55,12 +57,15 @@ function buildLaberynth(labyrinth){
   let entry = labyrinth.entry;
   let prof;
   //let altu = height / m[0].length;
-  for (let x = 0; x < m[0].length; x++){
-    for (let y = 0; y < m.length; y++){
+  for (let x = 0; x < m.length; x++){
+    for (let y = 0; y < m[0].length; y++){
       c = (m[x][y] == 0)? 255: 100;
-      prof = (m[x][y] === 0)? 0: 10;
-      //noStroke();
+      prof = (m[x][y] === 0 || m[x][y] === 7)? 0: 10;
+      tint(255);
       if (prof === 0){
+        if (m[x][y] === 7){
+          tint(255, 0, 0);
+        }
         texture(alfombra);
       } else {
         texture(tapiz);
@@ -71,18 +76,17 @@ function buildLaberynth(labyrinth){
       box(base, prof, altu);
       
       pop();
-      fill(255,0,0);
+      //fill(255,0,0);
       push();
-      //textureWrap(CLAMP);
-      texture(luces[parseInt(Math.random() * 2)]);
-      translate(x * base, -11 , y * altu);
+      tint(255);
+      texture(luz3);
+      translate(x * base, -10 , y * altu);
       box(base, 0, altu);
       
-      //plane(base, altu);
+      
       pop();
-      luz1.loop();
-      luz2.loop();
-      //rect(y * altu, x * base, altu, base);
+      
+      //plane(base, altu);
     } 
   }
 }
@@ -133,11 +137,14 @@ function generate(cellH, cellV){
       m[i][j] = 1;
     }
   }
-  let init = 2 * parseInt(Math.random() * cellH) + 1;
+  
+  let init = 2 * parseInt(Math.random() * cellV) + 1;
+  
   let end = 0;
   do {
-    end = 2 * parseInt(Math.random() * cellH) + 1;
-  } while (end === init);
+    end = 2 * parseInt(Math.random() * cellV) + 1;
+    
+  } while (end === init && cellV != cellH && cellV > 1);
   salas = adj(salas, m, init, 1);
   m[init][1] = 0;
   m[init][0] = 0;
@@ -169,40 +176,113 @@ function generate(cellH, cellV){
   return labyrinth;
 }
 
-  
-
-function draw() {
-  background(0);
-  let fr = Math.random() * (frameCount % 100);
-  ambientLight(0, 100 + fr, 0);
-  
-  buildLaberynth(laberinto);
-  console.log(cam1.centerX, cam1.centerY, cam1.centerZ);
-  
-  let speed = 0.25;
-  
-  let posX = parseInt((cam1.eyeX ) / me[0]);
-  let posZ = parseInt((cam1.eyeZ) / me[1]);
-   
-  let bound = posX < 0 || posX >= laberinto.m.length || posZ < 0 || posZ >= laberinto.m[0].length; 
-  let colide = (bound)? true: laberinto.m[posX][posZ] === 1;
-  
-  let deltaZ = (keyIsDown(UP_ARROW))? -speed: (keyIsDown(DOWN_ARROW))? speed: 0;
-  let deltaW = (keyIsDown(RIGHT_ARROW))? -1: (keyIsDown(LEFT_ARROW))? 1: 0;
-  let boingB = ((deltaZ > 0 || lm === 'B') && colide)? -speed: 0;
-  let boingF = ((deltaZ < 0 || lm === 'F') && colide)? speed: 0;
-  
-  cam1.move(0, 0, deltaZ + boingF + boingB);
-  cam1.pan(deltaW)
+function avanti(d){
+  laberinto = generate(d, d);
+  let entry = laberinto.entry;
+  let exit = laberinto.exit;
+  me = laberinto.metrics;
+  x = entry[0] * me[0];
+  z = entry[1] * me[1];
+  xf = exit[0] * me[0];
+  zf = exit[1] * me[1];
+  cam1.frustum(-1, 1, 1, -1, 1);
+  cam1.camera(x, -5, z);
+  cam1.lookAt(x, -5, z+0.1);
   
 }
 
-function keyPressed(){
-  if (keyCode === DOWN_ARROW){
-    lm = 'B';
+function setDificult(){
+  dificult = parseInt(inp.value());
+  dificult = (dificult <= 0)? 1: dificult;
+  lv.html("Dificultad: " + dificult);
+  inp.value('');
+  avanti(dificult);
+}
+
+function cords(x, z){
+  let px = parseInt((x + me[0]/2 )/ me[0]) ;
+  let pz = parseInt((z + me[1]/2) / me[1]) ;
+  return [px, pz];
+}
+
+function mp(x, z){
+  let c = cords(x, z);
+  let px = c[0];
+  let pz = c[1]; ;
+  let l = laberinto.m;
+  let r = (px >= 0 && pz >= 0 && px < l.length && pz < l[0].length)? l[px][pz]: 1; 
+  return r;
+}
+
+function movF(speed){
+  let deltaZ = (keyIsDown(87))? -speed: 0;
+  cam1.move(0, 0, deltaZ );
+  flag = 1;
+  return 1;
+}  
+
+function movB(speed){
+  let deltaZ = (keyIsDown(83))? speed: 0;
+  cam1.move(0, 0, deltaZ );
+  flag = 2;
+  return 1;
+}
+
+function girar(wSpeed){
+  let deltaW = (keyIsDown(68))? -wSpeed: (keyIsDown(65))? wSpeed: 0;
+  cam1.pan(deltaW);
+  return 1;
+}
+
+function boing(speed){
+  cam1.move(0, 0, -speed);
+}
+
+function draw() {
+  background(255,100,0);
+  
+  let fr = Math.random() * (frameCount % 105);
+  let col = 150 + fr;
+  ambientLight(col, col, col);
+  
+  buildLaberynth(laberinto);
+  
+  let cx = cam1.eyeX;
+  let cz = cam1.eyeZ;
+  let px = cam1.centerX;
+  let pz = cam1.centerZ;
+   
+  let speed = 0.25;
+  
+  let mf = mp(px, pz + 2 ) === 1 || mp(px, pz - 2) === 1 || mp(px - 2, pz) === 1 || mp(px + 2, pz) === 1;
+  let mb = mp( (px - 0.2), (pz - 0.2) + 2 ) === 1 || mp((px - 0.2), (pz - 0.2) - 2) === 1 || mp((px - 0.2) - 2, (pz - 0.2)) === 1 || mp((px - 0.2) + 2, (pz - 0.2)) === 1;
+  
+  console.log(mf, mb);
+
+  let w = 1;
+  let m = (!mf)? movF(speed): 0;
+  let m2 = (!mb)? movB(speed): 0;
+  
+  if (m === 0 && flag === 1){
+    boing(-speed);
   }
-  if (keyCode === UP_ARROW){
-    lm = 'F';
+  
+  
+  if (m2 === 0 && flag === 2){
+    boing(speed);
   }
-  return false;
+
+  let c = cords(cx, cz);
+  laberinto.m[c[0]][c[1]] = (laberinto.m[c[0]][c[1]] === 0 || laberinto.m[c[0]][c[1]] === 7)? 7: 1;
+
+  if (cz >= zf){
+    dificult++;
+    avanti(dificult);
+  } else if (cz < z){
+    dificult = (dificult <= 1)? 1: dificult - 1;
+    avanti(dificult);
+  }
+  lv.html("Dificultad: " + dificult);
+ 
+  let g = girar(w);
 }
