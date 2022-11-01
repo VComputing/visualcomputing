@@ -15,7 +15,7 @@ function preload(){S
   tapiz = loadImage("/visualcomputing/sketches/Labyrinth/textures/tapiz.jpg");
   alfombra = loadImage("/visualcomputing/sketches/Labyrinth/textures/alfombra.jpg");
   luz3 = loadImage("/visualcomputing/sketches/Labyrinth/textures/luz3.jpeg");
-  ambiente = loadSound("/visualcomputing/sketches/Labyrinth/sound/ambiente2.mp3");
+  //ambiente = loadSound("/visualcomputing/sketches/Labyrinth/sound/ambiente2.mp3");
 }
 
 function setup() {
@@ -33,7 +33,7 @@ function setup() {
   btm.mousePressed(setDificult);
   lv = createElement("h2", "Dificultad: " + dificult);
   lv.position(10, height - 80);
-  ambiente.loop();
+  //ambiente.loop();
   avanti(dificult);
   
 }
