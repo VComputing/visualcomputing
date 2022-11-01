@@ -299,6 +299,6 @@ function mousePressed(){
     isSound = true;
   } else {
     ambiente.stop();
-    isSound = False;
+    isSound = false;
   }
 }
