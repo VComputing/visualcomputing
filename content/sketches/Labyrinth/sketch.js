@@ -20,7 +20,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(500, 500, WEBGL);
+  createCanvas(800, 500, WEBGL);
   frameRate(60);
   getAudioContext().suspend();
   
