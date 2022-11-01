@@ -15,7 +15,7 @@ function preload(){
   tapiz = loadImage("/visualcomputing/sketches/Labyrinth/textures/tapiz.jpg");
   alfombra = loadImage("/visualcomputing/sketches/Labyrinth/textures/alfombra.jpg");
   luz3 = loadImage("/visualcomputing/sketches/Labyrinth/textures/luz3.jpeg");
-  //ambiente = loadSound("/visualcomputing/sketches/Labyrinth/sound/ambiente2.mp3");
+  ambiente = loadSound("/visualcomputing/sketches/Labyrinth/sound/ambiente2.mp3");
 }
 
 function setup() {
