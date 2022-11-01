@@ -10,7 +10,7 @@ let dirs;
 let flag;
 let dificult, inp, btm, lv;
 
-function preload(){S
+function preload(){
   // /visualcomputing/sketches/Labyrinth/
   tapiz = loadImage("/visualcomputing/sketches/Labyrinth/textures/tapiz.jpg");
   alfombra = loadImage("/visualcomputing/sketches/Labyrinth/textures/alfombra.jpg");
@@ -33,7 +33,7 @@ function setup() {
   btm.mousePressed(setDificult);
   lv = createElement("h2", "Dificultad: " + dificult);
   lv.position(10, height - 80);
-  //ambiente.loop();
+  ambiente.loop();
   avanti(dificult);
   
 }
