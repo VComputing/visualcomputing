@@ -35,7 +35,9 @@ function setup() {
   btm.mousePressed(setDificult);
   lv = createElement("h2", "Dificultad: " + dificult);
   lv.position(10, height - 80);
-  ambiente.loop();
+  
+  //ambiente.loop();
+  
   avanti(dificult);
   
 }
