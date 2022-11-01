@@ -293,4 +293,5 @@ function draw() {
 
 function mousePressed(){
   userStartAudio();
+  ambiente.loop();
 }
