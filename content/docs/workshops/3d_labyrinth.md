@@ -23,6 +23,7 @@ D: Rota la cámara hacia la derecha.
 A: Rota la cámara hacia la izquierda.
 W: Avanza en la dirección de tu punto de vista.
 S: Retrocede respecto a tu punto de vista.
+Click: Activa o desactiva el sonido ambiental.
 {{< /hint >}}
 
 {{< hint info >}}
