@@ -36,7 +36,7 @@ puedes quedar atrapado. Dios te salva si escuchas a algo deambulando
 cerca, porque seguro que te ha escuchado...«*
 {{< /hint >}}
 
-{{< p5-iframe sketch="/visualcomputing/sketches/Labyrinth/sketch.js" width="525" height="525" >}}
+{{< p5-iframe sketch="/visualcomputing/sketches/Labyrinth/sketch.js" lib1="/visualcomputing/sketches/Labyrinth/libraries/p5.sound.min.js" width="525" height="525" >}}
 
 {{< details "References" open >}}
   https://www.uaeh.edu.mx/scige/boletin/huejutla/n1/a4.html
