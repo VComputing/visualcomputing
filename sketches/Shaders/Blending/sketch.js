@@ -23,14 +23,17 @@ function draw() {
   u1 = c1.color();
   u2 = c2.color();
   fill(u1);
-  square(-width /2, -height/2 + 20, width / 2);
+  square(-width /2, -height/2 + 25, width / 2);
   resetShader();
   fill(u2);
-  square(0, -height/2 + 20, width / 2);
-  //shader(blendShader);
+  square(0, -height/2 + 25, width / 2);
+  shader(blendShader);
   blendShader.setUniform('uMaterial1', [red(u1), green(u1), blue(u1), 0]);
   blendShader.setUniform('uMaterial2', [red(u2), green(u2), blue(u2), 0]);
-  
-  //rect(0, height / 2, width, height);
-  circle(0, 60, 50);
+  beginShape();
+    vertex(-1, -1);
+    vertex(-1, -0.125);
+    vertex(1,-0.125);
+    vertex(1, -1);
+  endShape(CLOSE);
 }
