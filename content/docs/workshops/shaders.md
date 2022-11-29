@@ -10,7 +10,7 @@ Crear una escena que cuente con distintos tipos de modelos de iluminación e inc
 
 {{< /details >}}
 
-{{< details "Curvas de atenuación >}}
+{{< details "Curvas de atenuación" >}}
 .
 {{< /details >}}
 
