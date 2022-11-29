@@ -15,14 +15,16 @@ uniform float c;
 
 void main() {
   vec3 direction3 = uLightPosition - position4.xyz;
-  //vec3 nd = normalize(direction3);
+  vec3 reflected3 = reflect(-direction3, normalize(normal3));
   float d = distance(uLightPosition, position4.xyz);
   // solve the diffuse light equation discarding negative values
   // see: https://thebookofshaders.com/glossary/?search=max
   // see: https://thebookofshaders.com/glossary/?search=dot
-  float diffuse = max(0.0, dot(normalize(direction3), normalize(normal3)));
+  
+  float specular = max(0.0, dot(normalize(reflected3), normalize(-position4.xyz)));
+  
   float aten =   1.0 / (a*d*d + b*d + c);
-  gl_FragColor = (ambient + diffuse * aten) * uMaterialColor * lightColor;
+  gl_FragColor = (ambient + specular * aten) * uMaterialColor * lightColor;
 }
 
 
