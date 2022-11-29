@@ -24,7 +24,7 @@ Crear una escena que cuente con distintos tipos de modelos de iluminación e inc
 
 {{< /hint >}}
 
-{{< p5-iframe sketch="/visualcomputing/sketches/Shaders/Light/sketch.js" width="600" height="425" >}}
+{{< p5-iframe sketch="/visualcomputing/sketches/Shaders/Light/sketch.js" lib1= "/visualcomputing/sketches/Shaders/Light/libraries/p5.treegl.js" width="600" height="425" >}}
 
 {{< details "References" open >}}
   https://visualcomputing.github.io/docs/shaders/lighting/
