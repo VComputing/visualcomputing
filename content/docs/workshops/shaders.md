@@ -19,7 +19,9 @@ Para más información consulte la referencia número 1.
 {{< details "Curvas de atenuación" >}}
 El factor de atenuación determina la caida de la intensidad de luz que llega a un objeto respecto a su distancia con la fuente de luz, este se suele calcular por medio del inverso multiplicativo de una función cuadrática.
 
-
+{{< katex >}}
+f(d) = \dfrac{1}{a \cdot d^2 + b \cdot d + c} 
+{{< /katex >}}
 
 Este factor multiplicará la luz especular o difusa calculada en los shaders.
 
