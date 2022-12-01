@@ -95,7 +95,7 @@ void main() {
 
 let Shader; let tex; let Binv = false, Bbaw = false, Bcam = false, Bten = false, Belm = false, Bhsl = false, Bluz = false; let c1, c2, c3, c4;
 
-function preload(){ Shader = loadShader('/content/sketches/texturingShader.vert', '/content/sketches/texturingShader.frag'); tex = loadImage('/content/sketches/mandrill.png'); }
+function preload(){ Shader = loadShader('/visualcomputing/sketches/texturingShader.vert', '/visualcomputing/sketches/texturingShader.frag'); tex = loadImage('/visualcomputing/sketches/mandrill.png'); }
 
 function setup() { createCanvas(500, 500, WEBGL);
 
