@@ -1,74 +1,14 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Texturing # Problem Statement # Implement other coloring brightness tools such as HSV value V, HSL lightness L or Component average. Implement texture tinting by mixing color and texel interpolated data.
-Código fragment shader precision mediump float;
-varying vec4 color4; varying vec2 vTexCoord;
-uniform sampler2D tex0; uniform sampler2D vid0;
-uniform bool inv; uniform bool baw; uniform bool cam; uniform bool ten; uniform bool elm; uniform bool luz; uniform bool hsl; uniform vec2 mousePos; uniform vec3 colT; uniform float opc;"><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Texturing # Problem Statement # Implement other coloring brightness tools such as HSV value V, HSL lightness L or Component average. Implement texture tinting by mixing color and texel interpolated data.
-Código fragment shader precision mediump float;
-varying vec4 color4; varying vec2 vTexCoord;
-uniform sampler2D tex0; uniform sampler2D vid0;
-uniform bool inv; uniform bool baw; uniform bool cam; uniform bool ten; uniform bool elm; uniform bool luz; uniform bool hsl; uniform vec2 mousePos; uniform vec3 colT; uniform float opc;"><meta property="og:type" content="article"><meta property="og:url" content="https://VComputing.github.io/visualcomputing/docs/workshops/texturing/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2022-12-01T09:24:18-05:00"><title>Texturing | Visual Computing</title><link rel=manifest href=/visualcomputing/manifest.json><link rel=icon href=/visualcomputing/favicon.png type=image/x-icon><link rel=stylesheet href=/visualcomputing/book.min.ab46de3e725a6415339a37bba23a0067534a37289b063c9f8d011515a63097a8.css integrity="sha256-q0bePnJaZBUzmje7ojoAZ1NKNyibBjyfjQEVFaYwl6g=" crossorigin=anonymous><script defer src=/visualcomputing/flexsearch.min.js></script>
-<script defer src=/visualcomputing/en.search.min.e0492663bc049132d001d8720c9f2209835f92b715a9398fe3b97360b9d6983f.js integrity="sha256-4EkmY7wEkTLQAdhyDJ8iCYNfkrcVqTmP47lzYLnWmD8=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content=" Texturing # Problem Statement # Implement other coloring brightness tools such as HSV value V, HSL lightness L or Component average. Implement texture tinting by mixing color and texel interpolated data.
+References https://santiagovargasavendano.github.io/showcase/docs/shortcodes/Taller-3/texturing/ "><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content=" Texturing # Problem Statement # Implement other coloring brightness tools such as HSV value V, HSL lightness L or Component average. Implement texture tinting by mixing color and texel interpolated data.
+References https://santiagovargasavendano.github.io/showcase/docs/shortcodes/Taller-3/texturing/ "><meta property="og:type" content="article"><meta property="og:url" content="https://VComputing.github.io/visualcomputing/docs/workshops/texturing/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2022-12-01T09:31:06-05:00"><title>Texturing | Visual Computing</title><link rel=manifest href=/visualcomputing/manifest.json><link rel=icon href=/visualcomputing/favicon.png type=image/x-icon><link rel=stylesheet href=/visualcomputing/book.min.ab46de3e725a6415339a37bba23a0067534a37289b063c9f8d011515a63097a8.css integrity="sha256-q0bePnJaZBUzmje7ojoAZ1NKNyibBjyfjQEVFaYwl6g=" crossorigin=anonymous><script defer src=/visualcomputing/flexsearch.min.js></script>
+<script defer src=/visualcomputing/en.search.min.920c34f41d896be88474b1422f8d36ef93ab5f611f58d97f3b63d09d2b433b68.js integrity="sha256-kgw09B2Ja+iEdLFCL40275OrX2EfWNl/O2PQnStDO2g=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
 <input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/visualcomputing/><span>Visual Computing</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/visualcomputing/docs/autors/>Autors</a></li><li><input type=checkbox id=section-191d4fa5967ce9fef74cb18feb81d534 class=toggle checked>
 <label for=section-191d4fa5967ce9fef74cb18feb81d534 class="flex justify-between"><a href=/visualcomputing/docs/workshops/>Workshops</a></label><ul><li><a href=/visualcomputing/docs/workshops/3d_labyrinth/>3d Labyrinth</a></li><li><a href=/visualcomputing/docs/workshops/filtro_convolucion/>Filtro Convolucion</a></li><li><a href=/visualcomputing/docs/workshops/shaders/>Shaders</a></li><li><a href=/visualcomputing/docs/workshops/texturing/ class=active>Texturing</a></li><li><a href=/visualcomputing/docs/workshops/visual_illusions/>Visual Illusions</a></li></ul></li></ul><ul><li><a href=/visualcomputing/posts/>Blog</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/visualcomputing/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Texturing</strong>
 <label for=toc-control><img src=/visualcomputing/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#texturing>Texturing</a><ul><li><a href=#problem-statement>Problem Statement</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=texturing>Texturing
 <a class=anchor href=#texturing>#</a></h1><h2 id=problem-statement>Problem Statement
 <a class=anchor href=#problem-statement>#</a></h2><p>Implement other coloring brightness tools such as HSV value V, HSL lightness L or Component average.
-Implement texture tinting by mixing color and texel interpolated data.</p><details><summary>Código fragment shader</summary><div class=markdown-inner><p>precision mediump float;</p><p>varying vec4 color4;
-varying vec2 vTexCoord;</p><p>uniform sampler2D tex0;
-uniform sampler2D vid0;</p><p>uniform bool inv;
-uniform bool baw;
-uniform bool cam;
-uniform bool ten;
-uniform bool elm;
-uniform bool luz;
-uniform bool hsl;
-uniform vec2 mousePos;
-uniform vec3 colT;
-uniform float opc;</p><p>float luma(vec3 texel) {
-return 0.299 * texel.r + 0.587 * texel.g + 0.114 * texel.b;
-}</p><p>vec3 hslCol(vec3 texel){
-float Cmin = min(min(texel.r,texel.g),texel.b);
-float Cmax = max(max(texel.r,texel.g),texel.b);
-float delta = Cmax - Cmin;
-float H = 0.0 ,S = 0.0 ,L = 0.0 ;</p><p>if(delta == 0.0){
-H = 0.0;
-S = 0.0;
-}else if(texel.r == Cmax){
-H = 60.0 * (mod(((texel.g-texel.b)/delta), 6.0));
-}else if(texel.g==Cmax){
-H = 60.0 * (((texel.b-texel.r)/delta) + 2.0);
-}else{
-H = 60.0 * (((texel.r-texel.g)/delta) + 4.0);
-}
-L = (Cmax + Cmin)/2.0;</p><p>if(delta!=0.0){
-S = delta/(1.0-(2.0<em>L - 1.0 > 0.0 ? 2.0</em>L-1.0 : -(2.0*L-1.0)));
-}</p><p>return vec3(H,S,L);
-}</p><p>void main() {</p><p>vec2 uv = vTexCoord;
-uv = vec2(uv.x,1.0-uv.y);
-vec4 tex;
-if(!cam){
-tex = texture2D(tex0, uv);
-}else{
-tex = texture2D(vid0, uv);
-}</p><p>float pct = 0.0;
-pct = distance(vTexCoord,vec2(mousePos.x,1.0-mousePos.y));</p><p>if(baw){
-tex = vec4((vec3(luma(tex.rgb))), opc);
-}else if(inv){
-tex = vec4(vec3(1.0) - tex.rgb, opc);
-}else if(ten){
-tex = vec4((tex.rgb<em>colT.rgb), opc);
-}else if(elm){
-tex = vec4(tex.rgb-colT.rgb, opc);
-}else if(hsl){
-tex = vec4(tex.rgb</em>color4.rgb, opc);
-}else if(luz){
-tex = vec4((tex.rgb+(0.5-vec3(pct))), 1.0);
-}else{
-tex = vec4(tex.rgb, opc);
-}
-gl_FragColor = tex;
-}</p></div></details><iframe id=pyramid style=width:525px;height:525px srcdoc="
+Implement texture tinting by mixing color and texel interpolated data.</p><iframe id=pyramid style=width:525px;height:525px srcdoc="
         <!DOCTYPE html>
         <html>
           <head>
@@ -101,8 +41,8 @@ colorR = createButton('Randomize'); colorR.position(80, 30); colorR.mousePressed
 randomizeColor(); }
 
 function draw() {
-shader(Shader); Shader.setUniform('tex0', tex); Shader.setUniform('vid0', vid); Shader.setUniform('inv', Binv); Shader.setUniform('baw', Bbaw); Shader.setUniform('ten', Bten); Shader.setUniform('cam', Bcam); Shader.setUniform('elm', Belm); Shader.setUniform('luz', Bluz); Shader.setUniform('hsl', Bhsl); Shader.setUniform('mousePos', [mouseX/500,mouseY/500]); Shader.setUniform('colT', colorPicker.color()._array); Shader.setUniform('opc', 1);
-if(Bhsl){ beginShape(); fill(c1); vertex(0, 0); fill(c2); vertex(0, 1); fill(c3); vertex(1, 1); fill(c4); vertex(1, 0); endShape(); } rect(0,0,width, height); }
+    shader(Shader); Shader.setUniform('tex0', tex); Shader.setUniform('vid0', vid); Shader.setUniform('inv', Binv); Shader.setUniform('baw', Bbaw); Shader.setUniform('ten', Bten); Shader.setUniform('cam', Bcam); Shader.setUniform('elm', Belm); Shader.setUniform('luz', Bluz); Shader.setUniform('hsl', Bhsl); Shader.setUniform('mousePos', [mouseX/500,mouseY/500]); Shader.setUniform('colT', colorPicker.color()._array); Shader.setUniform('opc', 1);
+    if(Bhsl){ beginShape(); fill(c1); vertex(0, 0); fill(c2); vertex(0, 1); fill(c3); vertex(1, 1); fill(c4); vertex(1, 0); endShape(); } rect(0,0,width, height); }
 
 
 function optionEvent() { let opt = option.value(); if(opt==&#34;Original&#34;){ Bbaw = false; Binv = false; Bten = false; Belm = false; Bhsl = false; Bluz = false; }else if(opt==&#34;Blanco y negro&#34;){ Bbaw = true; Binv = false; Bten = false; Belm = false; Bhsl = false; Bluz = false; }else if(opt==&#34;Invertir&#34;){ Bbaw = false; Binv = true; Bten = false; Belm = false; Bhsl = false; Bluz = false; }else if(opt==&#34;Teñido&#34;){ Bbaw = false; Binv = false; Bten = true; Belm = false; Bhsl = false; Bluz = false; }else if(opt==&#34;Eliminación&#34;){ Bbaw = false; Binv = false; Bten = false; Belm = true; Bhsl = false; Bluz = false; }else if(opt==&#34;Teñido 2&#34;){ Bbaw = false; Binv = false; Bten = false; Belm = false; Bhsl = true; Bluz = false; }else if(opt==&#34;Luz&#34;){ Bbaw = false; Binv = false; Bten = false; Belm = false; Bhsl = false; Bluz = true; } }
@@ -120,5 +60,5 @@ function randomizeColor() { c1 = [random(0,255),random(0,255),random(0,255)]; c2
           </body>
         </html>
       "></iframe>
-<details open><summary>References</summary><div class=markdown-inner><a href=https://santiagovargasavendano.github.io/showcase/docs/shortcodes/Taller-3/texturing/>https://santiagovargasavendano.github.io/showcase/docs/shortcodes/Taller-3/texturing/</a></div></details></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VComputing/visualcomputing/commit/70ccbad22b06ac8f817e3af7d43eebb9e40d9661 title='Last modified by aleja | December 1, 2022' target=_blank rel=noopener><img src=/visualcomputing/svg/calendar.svg class=book-icon alt=Calendar>
+<details open><summary>References</summary><div class=markdown-inner><a href=https://santiagovargasavendano.github.io/showcase/docs/shortcodes/Taller-3/texturing/>https://santiagovargasavendano.github.io/showcase/docs/shortcodes/Taller-3/texturing/</a></div></details></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VComputing/visualcomputing/commit/79634a0efec352d42f400348f2fafe2ccd660c70 title='Last modified by aleja | December 1, 2022' target=_blank rel=noopener><img src=/visualcomputing/svg/calendar.svg class=book-icon alt=Calendar>
 <span>December 1, 2022</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#texturing>Texturing</a><ul><li><a href=#problem-statement>Problem Statement</a></li></ul></li></ul></nav></div></aside></main></body></html>
