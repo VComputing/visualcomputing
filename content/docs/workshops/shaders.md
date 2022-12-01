@@ -6,7 +6,7 @@
 Crear una escena que cuente con distintos tipos de modelos de iluminación e incorpore atenuación de las fuentes de luz.
 
 
-{{< details "Modelos de Iluminación" open >}}
+####Modelos de Iluminación" open 
 Una forma de simular el comportamiento de la luz, estos son utilizados para dar más realismo a las escenas o generar interesantes materiales. Los modelos trabajados en este ejercicio son: 
 
 - **Luz ambiental:** Simula la cantidad de luz presente en la escena, esta no está asociada a una fuente de luz en particular.
@@ -14,9 +14,9 @@ Una forma de simular el comportamiento de la luz, estos son utilizados para dar 
 - **Luz especular:** Materiales altamente reflectantes donde la forma del objeto cobra más importancia respecto a la interacción con la fuente de luz.
 
 Para más información consulte la referencia número 1.
-{{< /details >}}
 
-{{< details "Curvas de atenuación" >}}
+
+####Curvas de Atenuación.
 El factor de atenuación determina la caida de la intensidad de luz que llega a un objeto respecto a su distancia con la fuente de luz, este se suele calcular por medio del inverso multiplicativo de una función cuadrática.
 {{< katex [display] [class="text-center"]  >}}
 f(d) = \dfrac{1}{a \cdot d^2 + b \cdot d + c} 
@@ -25,7 +25,6 @@ f(d) = \dfrac{1}{a \cdot d^2 + b \cdot d + c}
 Este factor multiplicará la luz especular o difusa calculada en los shaders.
 
 Para más información, consulte la fuente 2.
-{{< /details >}}
 
 {{< hint info >}}
 **Instrucciones de Uso:**
