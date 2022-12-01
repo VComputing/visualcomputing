@@ -44,7 +44,7 @@ A continuación se describe la función de cada uno de los elementos dispuestos 
 **Descripción de la escena:** El elemento central es un sólido compuésto por un cubo que es atravesado por una esfera, dichos objetos son concéntricos. Dicho sólido se encuentra en una caja formada por seis planos. 
 Este ejercicio también utilizó conceptos de mezcla de colores, ya que la luz ambiental se combina con los colores base de los diversos materiales de las paredes, que se generan de forma aleatoria, y los de la figura. Tanto el cubo como la mitad de las paredes están formados por un material especular, el resto de los elementos son iluminados de forma difusa.
 La fuente de luz es una pequeña esfera que se mueve dentro de la caja describiendo un helicoide.
-Es importante tener en cuenta que para que la fuente de luz tuviera efecto en todas las paredes, estas tuvieron que ser acomodadas de modo que sus normales apunten hacia el punto central de la escena. si dicho vector se orienta en sentido contrario, no será iluminado, por tanto, no basta con que la rotación sea naturalmente simétrica en un plano si esta se hace a 180° sobre un eje dado.
+Es importante tener en cuenta que para que la fuente de luz tuviera efecto en todas las paredes, estas tuvieron que ser acomodadas de modo que sus normales apunten hacia el punto central de la escena. si dicho vector se orienta en sentido contrario, no será iluminado, por tanto, no basta con que la rotación sea naturalmente simétrica en un plano si esta se hace a 180 grados sobre un eje dado.
 {{< /hint >}}
 
 {{< p5-iframe sketch="/visualcomputing/sketches/Shaders/Light/sketch.js" lib1= "/visualcomputing/sketches/Shaders/Light/libraries/p5.treegl.js" width="600" height="425" >}}
