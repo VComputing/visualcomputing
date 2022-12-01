@@ -14,7 +14,7 @@ function preload(){ Shader = loadShader('/visualcomputing/sketches/texturingShad
 
 function setup() { createCanvas(500, 500, WEBGL);
 
-inputImg = createFileInput(handleFile); inputImg.position(255, 5); inputImg.size(240);
+
 
 option = createSelect(); option.position(15, 5); option.option('Original'); option.option('Blanco y negro'); option.option('Invertir'); option.option('Teñido'); option.option('Eliminación'); option.option('Teñido 2'); option.option('Luz'); option.selected('Original'); option.changed(optionEvent);
 
